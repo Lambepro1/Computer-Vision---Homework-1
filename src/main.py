@@ -40,7 +40,7 @@ if __name__ == "__main__":
             channel = imgs_deg[j][:, :, i]
             album_stretched[j][:, :, i] = cv2.normalize(channel, None, 0, 255, cv2.NORM_MINMAX)
         
-        partial_view = cv2.hconcat([imgs_deg[j], album_stretched[j]])
+        partial_view = cv2.hconcat([album[j], imgs_deg[j], album_stretched[j]])
         cv2.imshow(f'Linear contrast stretching - image {j}', partial_view)
 
         metrics_computing(album[j], album_stretched[j], j, results1)
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
         clahe_imgs.append(clahe_img_equalized)
         
-        clahe_view = cv2.hconcat([imgs_deg[i], clahe_img_equalized])
+        clahe_view = cv2.hconcat([album[i], imgs_deg[i], clahe_img_equalized])
         cv2.imshow(f'CLAHE of img {i}', clahe_view)
 
         metrics_computing(album[i], clahe_img_equalized, i, results2)
@@ -92,7 +92,7 @@ if __name__ == "__main__":
         img_enhanced = cv2.cvtColor(img_filtered_hsv, cv2.COLOR_HSV2BGR)
         album_enhanced.append(img_enhanced)
 
-        bilateral_view = cv2.hconcat([imgs_deg[i], album_enhanced[i]])
+        bilateral_view = cv2.hconcat([album[i], imgs_deg[i], album_enhanced[i]])
         cv2.imshow(f'bilateral filter of img {i}', bilateral_view)
         
         metrics_computing(album[i], album_enhanced[i], i, results3)
